@@ -16,9 +16,8 @@ class Api::V1::UserController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.new_token
     if @user.save
-      @user.new_token
-      @user.save
       render :json => return_user_object(@user), status: :ok
     else
       render :json => {error: "ユーザの作成に失敗しました"}, status: :internal_server_error

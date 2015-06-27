@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true
 
-  before_save :hash
+  before_create :hash
 
   # 認証を行う。
   def authoricate(password)
-    return false if User.crypt_password(password, self.salt) != self.crypted_password
+    return false if User.crypt_password(password, self.salt) != self.password
     true
   end
 
