@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :post, only: [:create, :index, :show]
+      resources :user, only: [:create, :show, :update] do
+        collection do
+          post 'sign_in'
+        end
+      end
+
     end
   end
 
