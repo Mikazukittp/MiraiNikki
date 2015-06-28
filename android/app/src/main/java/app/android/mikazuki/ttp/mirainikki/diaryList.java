@@ -102,6 +102,11 @@ public class DiaryList extends AppCompatActivity {
 
     }
 
+    public void goToCreatePlan(View view){
+        Intent intent = new Intent(this, CreatePlan.class);
+        startActivity(intent);
+    }
+
     public class PlanAdapter extends ArrayAdapter<Plan> {
         private LayoutInflater layoutInflater;
 

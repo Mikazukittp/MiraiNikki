@@ -24,6 +24,18 @@
             android:name=".CreatePlan"
             android:label="@string/title_activity_create_plan" >
         </activity>
+
+        <provider
+            android:name=".PlanContentProvider"
+            android:authorities="app.android.mikazuki.ttp.mirainikki"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+
+        <activity
+            android:name=".SignUp"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
     </application>
 
 </manifest>

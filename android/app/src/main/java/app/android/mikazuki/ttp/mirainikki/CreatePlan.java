@@ -1,9 +1,17 @@
 package app.android.mikazuki.ttp.mirainikki;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class CreatePlan extends ActionBarActivity {
@@ -12,27 +20,68 @@ public class CreatePlan extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_plan);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_plan, menu);
-        return true;
-    }
+        Intent intent = getIntent();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //open db
+        PlanOpenHelper planOpenHelper = new PlanOpenHelper(this);
+        SQLiteDatabase db = planOpenHelper.getWritableDatabase();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        ContentValues newPlan = new ContentValues();
+//        newPlan.put(PlanContract.Plans.COL_DATE, "yymmdd");
+//        newPlan.put(PlanContract.Plans.COL_CONTENT, "hogehoge");
+//        long newId = db.insert(
+//                PlanContract.Plans.TABLE_NAME,
+//                null,
+//                newPlan
+//        );
+
+        Cursor c = null;
+        c = db.query(
+                PlanContract.Plans.TABLE_NAME,
+                null, //fields
+                null, //where
+                null, //where arg
+                null, //group by
+                null, //having
+                null  //order by
+        );
+        Log.v("DB_TEST", "Count: " + c.getCount());
+
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
+            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
+            String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
+            Log.v("DB_TEST", "id: " + id + " date: " + date + " content: " + content);
         }
+        c.close();
 
-        return super.onOptionsItemSelected(item);
+        // close db
+        db.close();
+
+    }
+
+    public void submitPlan(View view) {
+        // EditTextを取得
+        EditText planContent = (EditText) findViewById(R.id.planContent);
+
+        // EditTextの中身を取得
+        String pc = planContent.getText().toString().trim();
+
+        // 中身を観て条件分岐
+        if (pc.equals("")) {
+            // エラー処理
+            Toast.makeText(
+                    this,
+                    "Please enter your name!",
+                    Toast.LENGTH_LONG
+            ).show();
+
+        } else {
+            // 次の画面へ
+            Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+
+        }
     }
 }

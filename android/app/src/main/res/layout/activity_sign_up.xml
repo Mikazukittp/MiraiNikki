@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.android.mikazuki.ttp.mirainikki.CreatePlan">
+    tools:context="app.android.mikazuki.ttp.mirainikki.SignUp">
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -10,28 +10,37 @@
         tools:context="app.android.mikazuki.ttp.mirainikki.DiaryList">
 
         <EditText
-            android:id="@+id/planDate"
+            android:id="@+id/userId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
-            android:hint="いつまでに？" />
+            android:hint="ユーザーID" />
 
         <EditText
-            android:id="@+id/planContent"
+            android:id="@+id/userBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/planDate"
+            android:layout_below="@+id/userId"
             android:layout_marginTop="20dp"
-            android:hint="なにしてる？" />
+            android:hint="生年月日" />
+
+        <EditText
+            android:id="@+id/userPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userBirthday"
+            android:layout_marginTop="20dp"
+            android:hint="パスワード" />
+
 
         <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/planContent"
+            android:layout_below="@+id/userPass"
             android:layout_centerHorizontal="true"
-            android:onClick="submitPlan"
-            android:text="Submit" />
+            android:onClick="submitUserInfo"
+            android:text="サインアップ" />
 
 
     </RelativeLayout>
