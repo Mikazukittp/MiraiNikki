@@ -4,11 +4,9 @@
 
     <!-- Theme & Accent -->
     <color name="theme400">#26A69A</color>
-    <color name="theme600">#00897B</color>
+    <color name="theme600">#47A493</color>
     <color name="theme800">#00695C</color>
     <color name="accent500">#E67F4F</color>
-    <color name="accent">#E67F4F</color>
-    <color name="main">#47A493</color>
 
 
     <!-- Grayscales -->

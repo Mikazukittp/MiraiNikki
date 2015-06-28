@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
-            android:hint="ユーザーID" />
+            android:hint="@string/user_id_hint" />
 
         <EditText
             android:id="@+id/userBirthday"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/userId"
             android:layout_marginTop="20dp"
-            android:hint="生年月日" />
+            android:hint="@string/user_birthday_hint" />
 
         <EditText
             android:id="@+id/userPass"
@@ -30,17 +30,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/userBirthday"
             android:layout_marginTop="20dp"
-            android:hint="パスワード" />
+            android:hint="@string/user_pass_hint" />
 
 
         <Button
-            android:id="@+id/submitButton"
+            android:id="@+id/submitUserInfoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/userPass"
             android:layout_centerHorizontal="true"
             android:onClick="submitUserInfo"
-            android:text="サインアップ" />
+            android:text="@string/submit_user_info_button_text" />
 
 
     </RelativeLayout>

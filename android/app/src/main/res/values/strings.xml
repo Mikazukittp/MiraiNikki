@@ -2,7 +2,18 @@
     <string name="app_name">Mirainikki</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_diary_list">diaryList</string>
+    <string name="title_activity_plan_list">planList</string>
     <string name="title_activity_create_plan">CreatePlan</string>
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="plan_date_hint">いつまでに？</string>
+    <string name="plan_content_hint">なにしてる？</string>
+    <string name="submit_plan_button_text">作成</string>
+    <string name="app_introduction">自分の未来に日記をつけよう</string>
+    <string name="welcome_button_text">未来を描く</string>
+    <string name="empty_view_text">No data</string>
+    <string name="create_plan_button_text">new plan</string>
+    <string name="user_id_hint">ユーザーID</string>
+    <string name="user_birthday_hint">生年月日</string>
+    <string name="user_pass_hint">パスワード</string>
+    <string name="submit_user_info_button_text">サインアップ</string>
 </resources>

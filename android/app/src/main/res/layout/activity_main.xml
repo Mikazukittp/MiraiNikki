@@ -15,7 +15,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
-            android:text="自分の未来に日記をつけよう"
+            android:text="@string/app_introduction"
             android:textSize="20sp" />
 
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_below="@+id/appIntroduction"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@color/main" />
+            android:background="@color/theme600" />
 
         <TextView
             android:id="@+id/appName"
@@ -46,7 +46,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:onClick="nextView"
-            android:text="未来を描く" />
+            android:text="@string/welcome_button_text" />
             <!--android:onClick="changeLabel"-->
 
     </RelativeLayout>
