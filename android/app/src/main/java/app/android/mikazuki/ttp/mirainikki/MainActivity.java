@@ -1,5 +1,6 @@
 package app.android.mikazuki.ttp.mirainikki;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import java.io.Externalizable;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void nextView(View view){
+        Intent intent = new Intent(this, DiaryList.class);
+        startActivity(intent);
     }
 
     @Override
