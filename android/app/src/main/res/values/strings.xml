@@ -2,7 +2,7 @@
     <string name="app_name">Mirainikki</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_plan_list">planList</string>
+    <string name="title_activity_diary_list">planList</string>
     <string name="title_activity_create_plan">CreatePlan</string>
     <string name="title_activity_sign_up">SignUp</string>
     <string name="plan_date_hint">いつまでに？</string>
