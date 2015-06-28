@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="app.android.mikazuki.ttp.mirainikki.DiaryList">
+        tools:context="app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment">
 
         <ListView
             android:id="@+id/myListView"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        tools:context="app.android.mikazuki.ttp.mirainikki.DiaryList">
+        tools:context="app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment">
 
         <Button
             android:layout_width="wrap_content"

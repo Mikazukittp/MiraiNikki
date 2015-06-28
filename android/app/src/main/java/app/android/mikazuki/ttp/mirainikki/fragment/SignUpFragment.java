@@ -1,15 +1,14 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.fragment;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
+import app.android.mikazuki.ttp.mirainikki.R;
 
-public class SignUp extends AppCompatActivity {
+
+public class SignUpFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void submitUserInfo(View view) {
-        Intent intent = new Intent(this, DiaryList.class);
+        Intent intent = new Intent(this, PlanListFragment.class);
         startActivity(intent);
     }
 }

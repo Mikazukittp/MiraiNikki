@@ -1,20 +1,22 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.fragment;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import app.android.mikazuki.ttp.mirainikki.model.PlanContract;
+import app.android.mikazuki.ttp.mirainikki.PlanOpenHelper;
+import app.android.mikazuki.ttp.mirainikki.R;
 
-public class CreatePlan extends ActionBarActivity {
+
+public class CreatePlanFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class CreatePlan extends ActionBarActivity {
 
         } else {
             // 次の画面へ
-            Intent intent = new Intent(this, SignUp.class);
+            Intent intent = new Intent(this, SignUpFragment.class);
             startActivity(intent);
 
         }

@@ -11,10 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import java.io.Externalizable;
-
+import app.android.mikazuki.ttp.mirainikki.fragment.MainActivityFragment;
+import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void nextView(View view){
-        Intent intent = new Intent(this, DiaryList.class);
+        Intent intent = new Intent(this, PlanListFragment.class);
         startActivity(intent);
     }
 

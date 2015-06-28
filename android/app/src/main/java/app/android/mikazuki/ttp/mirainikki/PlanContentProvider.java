@@ -6,6 +6,8 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
+import app.android.mikazuki.ttp.mirainikki.model.PlanContract;
+
 public class PlanContentProvider extends ContentProvider {
 
     public static final String AUTHORITY = 

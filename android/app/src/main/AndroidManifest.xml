@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DiaryList"
+            android:name=".fragment.PlanListFragment"
             android:label="@string/title_activity_diary_list"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".CreatePlan"
+            android:name=".fragment.CreatePlanFragment"
             android:label="@string/title_activity_create_plan" >
         </activity>
 
@@ -33,7 +33,7 @@
         </provider>
 
         <activity
-            android:name=".SignUp"
+            android:name=".fragment.SignUpFragment"
             android:label="@string/title_activity_sign_up" >
         </activity>
     </application>

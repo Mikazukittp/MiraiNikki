@@ -1,4 +1,4 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.model;
 
 import android.provider.BaseColumns;
 

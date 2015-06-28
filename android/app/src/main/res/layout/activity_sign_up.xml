@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.android.mikazuki.ttp.mirainikki.SignUp">
+    tools:context="app.android.mikazuki.ttp.mirainikki.fragment.SignUpFragment">
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="app.android.mikazuki.ttp.mirainikki.DiaryList">
+        tools:context="app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment">
 
         <EditText
             android:id="@+id/userId"

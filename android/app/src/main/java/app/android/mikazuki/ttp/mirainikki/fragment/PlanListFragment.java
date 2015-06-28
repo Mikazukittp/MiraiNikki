@@ -1,19 +1,12 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,10 +17,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import app.android.mikazuki.ttp.mirainikki.R;
 import butterknife.InjectView;
 
 
-public class DiaryList extends AppCompatActivity {
+public class PlanListFragment extends AppCompatActivity {
 
     @InjectView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -36,7 +30,7 @@ public class DiaryList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary_list);
+        setContentView(R.layout.activity_plan_list);
 
         Intent intent = getIntent();
 
@@ -92,7 +86,7 @@ public class DiaryList extends AppCompatActivity {
             ) {
                 TextView content = (TextView) view.findViewById(R.id.content);
                 Toast.makeText(
-                        DiaryList.this,
+                        PlanListFragment.this,
                         Integer.toString(i) + ":" + content.getText().toString(),
                         Toast.LENGTH_SHORT
                 ).show();
@@ -103,7 +97,7 @@ public class DiaryList extends AppCompatActivity {
     }
 
     public void goToCreatePlan(View view){
-        Intent intent = new Intent(this, CreatePlan.class);
+        Intent intent = new Intent(this, CreatePlanFragment.class);
         startActivity(intent);
     }
 
