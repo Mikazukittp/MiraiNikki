@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/planContent"
             android:layout_centerHorizontal="true"
-            android:onClick="submitPlan"
             android:text="@string/submit_plan_button_text" />
 
 

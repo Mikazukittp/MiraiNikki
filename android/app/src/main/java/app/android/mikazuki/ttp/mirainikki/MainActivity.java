@@ -16,10 +16,11 @@ import android.view.View;
 import app.android.mikazuki.ttp.mirainikki.fragment.CreatePlanFragment;
 import app.android.mikazuki.ttp.mirainikki.fragment.MainActivityFragment;
 import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
+import app.android.mikazuki.ttp.mirainikki.fragment.SignUpFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener, PlanListFragment.InteractionListener{
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener, PlanListFragment.InteractionListener, CreatePlanFragment.InteractionListener,SignUpFragment.InteractionListener {
 
     @InjectView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -68,7 +69,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         transaction.commit();
     }
 
-    public void nextView(View view){
+    @Override
+    public void goToSignUp() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new SignUpFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToSignUp");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    public void nextView(View view) {
         Intent intent = new Intent(this, PlanListFragment.class);
         startActivity(intent);
     }
