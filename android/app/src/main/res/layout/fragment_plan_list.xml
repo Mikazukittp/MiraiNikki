@@ -2,17 +2,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment">
+        android:orientation="vertical">
 
         <ListView
-            android:id="@+id/myListView"
+            android:id="@+id/planListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"/>
+            android:layout_marginTop="70dp" />
 
         <TextView
             android:id="@+id/emptyView"
@@ -24,27 +23,18 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" />
-
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        tools:context="app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment">
+        android:gravity="bottom">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/createPlanButton"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:onClick="goToCreatePlan"
-            android:text="@string/create_plan_button_text"
-            />
+            android:text="@string/create_plan_button_text" />
     </RelativeLayout>
 
 </FrameLayout>

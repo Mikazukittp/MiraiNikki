@@ -17,7 +17,7 @@ import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener {
 
     @InjectView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -35,6 +35,18 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Fragment fragment = new MainActivityFragment();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void goToPlanList() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new PlanListFragment();
+        //
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
