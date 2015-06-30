@@ -1,15 +1,19 @@
 package app.android.mikazuki.ttp.mirainikki.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +26,8 @@ import butterknife.InjectView;
 
 public class PlanListFragment extends Fragment {
 
+    private InteractionListener mListener;
+
     public PlanListFragment() {
     }
 
@@ -32,6 +38,7 @@ public class PlanListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("mylog", "PlanListFragment");
         // 遷移先のxmlを指定
         View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
 
@@ -51,7 +58,15 @@ public class PlanListFragment extends Fragment {
         planListView.setAdapter(adapter);
         planListView.setEmptyView(view.findViewById(R.id.emptyView));
 
+        Button bt = (Button) view.findViewById(R.id.createPlanButton);
 
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("mylog", "PlanListFragment#onClick");
+                mListener.goToCreatePlan();
+            }
+        });
 
         //Event
 //        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,7 +79,7 @@ public class PlanListFragment extends Fragment {
 //            ) {
 //                TextView content = (TextView) view.findViewById(R.id.content);
 //                Toast.makeText(
-//                        PlanListFragment.this.getActivity().getApplication(),
+//                        PlanListFragment.this.getActivity().getApplicationContext(),
 //                        Integer.toString(i) + ":" + content.getText().toString(),
 //                        Toast.LENGTH_SHORT
 //                ).show();
@@ -74,6 +89,21 @@ public class PlanListFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (InteractionListener) activity;
+        } catch (ClassCastException e) {
+            Log.e("TAG", e.getMessage());
+        }
+    }
+
+    public interface InteractionListener {
+        public void goToCreatePlan();
+    }
+
 
     public class PlanAdapter extends ArrayAdapter<Plan> {
         private LayoutInflater layoutInflater;

@@ -9,15 +9,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import app.android.mikazuki.ttp.mirainikki.fragment.CreatePlanFragment;
 import app.android.mikazuki.ttp.mirainikki.fragment.MainActivityFragment;
 import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener {
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener, PlanListFragment.InteractionListener{
 
     @InjectView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -48,6 +50,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         Fragment fragment = new PlanListFragment();
         //
         transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToPlanList");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void goToCreatePlan() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new CreatePlanFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToCreatePlan");
         transaction.addToBackStack(null);
         transaction.commit();
     }
