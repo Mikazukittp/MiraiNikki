@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewFeatureViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewFeatureViewController" customModule="Mirainikki" customModuleProvider="target">
             <connections>
+                <outlet property="DateTextField" destination="FGI-XZ-Bq3" id="9dZ-CS-l1p"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -13,7 +14,45 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z61-aC-1NE">
+                    <rect key="frame" x="95" y="233" width="434" height="267"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="434" id="ETh-n7-dv3"/>
+                        <constraint firstAttribute="height" constant="267" id="Urs-N1-Iua"/>
+                    </constraints>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FGI-XZ-Bq3">
+                    <rect key="frame" x="407" y="60" width="133" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="3Wr-JM-Rq8"/>
+                        <constraint firstAttribute="width" constant="133" id="6az-GK-K7I"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="TextFieldTaped:" destination="-1" eventType="touchDown" id="yhl-bo-6RS"/>
+                    </connections>
+                </textField>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="FGI-XZ-Bq3" secondAttribute="trailing" constant="60" id="0Gh-k3-FVb"/>
+                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="FGI-XZ-Bq3" secondAttribute="trailing" constant="62" id="2CB-SX-pbN"/>
+                <constraint firstAttribute="centerX" secondItem="z61-aC-1NE" secondAttribute="centerX" constant="-12" id="74t-W7-UYa"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FGI-XZ-Bq3" secondAttribute="trailing" constant="60" id="99S-Bq-HhA"/>
+                <constraint firstAttribute="bottom" secondItem="z61-aC-1NE" secondAttribute="bottom" constant="100" id="Qbt-fr-yhh"/>
+                <constraint firstItem="FGI-XZ-Bq3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="SXo-5m-Y4U"/>
+                <constraint firstItem="FGI-XZ-Bq3" firstAttribute="top" relation="lessThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="111" id="bLe-By-iTs"/>
+                <constraint firstItem="FGI-XZ-Bq3" firstAttribute="top" relation="lessThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="q5i-HR-tcw"/>
+                <constraint firstItem="FGI-XZ-Bq3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="qit-8h-pFP"/>
+                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="FGI-XZ-Bq3" secondAttribute="trailing" constant="60" id="qys-Tq-Dn3"/>
+                <constraint firstAttribute="trailing" secondItem="FGI-XZ-Bq3" secondAttribute="trailing" constant="60" id="rEk-uh-cUE"/>
+            </constraints>
         </view>
     </objects>
 </document>

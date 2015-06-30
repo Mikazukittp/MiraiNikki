@@ -10,8 +10,20 @@ import UIKit
 
 class NewFeatureViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "新規作成"
+    @IBOutlet weak var pickerView: UIDatePicker!
+    @IBOutlet weak var DateTextField: UITextField!
+    
+    var toolBar:UIToolbar!
+    var myDatePicker: UIDatePicker!
+    
+    
+    
+    @IBAction func TextFieldTaped(sender: AnyObject) {
+        
+        self.pickerView.hidden = true;
     }
+   
+    
+    
+    
 }
