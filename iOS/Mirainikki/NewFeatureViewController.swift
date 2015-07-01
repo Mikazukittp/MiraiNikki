@@ -8,22 +8,13 @@
 
 import UIKit
 
-class NewFeatureViewController: UIViewController {
+class NewFeatureViewController:UIViewController,UITextFieldDelegate{
+    
+    @IBOutlet weak var InputText: UITextView!
 
-    @IBOutlet weak var pickerView: UIDatePicker!
-    @IBOutlet weak var DateTextField: UITextField!
+    override func viewDidLoad() {
+        super.viewDidLoad()
     
-    var toolBar:UIToolbar!
-    var myDatePicker: UIDatePicker!
-    
-    
-    
-    @IBAction func TextFieldTaped(sender: AnyObject) {
-        
-        self.pickerView.hidden = true;
+        InputText.text = "aaa"        // Do any additional setup after loading the view.
     }
-   
-    
-    
-    
 }
