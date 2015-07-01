@@ -1,6 +1,7 @@
 package app.android.mikazuki.ttp.mirainikki.fragment;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,52 +36,52 @@ public class CreatePlanFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_create_plan, container, false);
 
+        final EditText planDate = (EditText) view.findViewById(R.id.planDate);
+        final EditText planContent = (EditText) view.findViewById(R.id.planContent);
         Button bt = (Button) view.findViewById(R.id.submitPlanButton);
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //open db
+                PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
+                SQLiteDatabase db = planOpenHelper.getWritableDatabase();
+
+                ContentValues newPlan = new ContentValues();
+                newPlan.put(PlanContract.Plans.COL_DATE, String.valueOf(planDate.getText()));
+                newPlan.put(PlanContract.Plans.COL_CONTENT, String.valueOf(planContent.getText()));
+                long newId = db.insert(
+                        PlanContract.Plans.TABLE_NAME,
+                        null,
+                        newPlan
+                );
+
+                Cursor c = null;
+                c = db.query(
+                        PlanContract.Plans.TABLE_NAME,
+                        null, //fields
+                        null, //where
+                        null, //where arg
+                        null, //group by
+                        null, //having
+                        null  //order by
+                );
+                Log.d("mylog", "Count: " + c.getCount());
+
+                while (c.moveToNext()) {
+                    int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
+                    String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
+                    String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
+                    Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
+                }
+                // close db
+                c.close();
+                db.close();
+
                 Log.d("mylog", "CreatePlanFragment#onClick");
                 mListener.goToSignUp();
             }
         });
-//
-//
-//        //open db
-//        PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
-//        SQLiteDatabase db = planOpenHelper.getWritableDatabase();
-//
-//        ContentValues newPlan = new ContentValues();
-//        newPlan.put(PlanContract.Plans.COL_DATE, "yymmdd");
-//        newPlan.put(PlanContract.Plans.COL_CONTENT, "hogehoge");
-//        long newId = db.insert(
-//                PlanContract.Plans.TABLE_NAME,
-//                null,
-//                newPlan
-//        );
-//
-//        Cursor c = null;
-//        c = db.query(
-//                PlanContract.Plans.TABLE_NAME,
-//                null, //fields
-//                null, //where
-//                null, //where arg
-//                null, //group by
-//                null, //having
-//                null  //order by
-//        );
-//        Log.d("mylog", "Count: " + c.getCount());
-//
-//        while (c.moveToNext()) {
-//            int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
-//            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
-//            String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
-//            Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
-//        }
-//        c.close();
-//
-//        // close db
-//        db.close();
 
         return view;
     }
