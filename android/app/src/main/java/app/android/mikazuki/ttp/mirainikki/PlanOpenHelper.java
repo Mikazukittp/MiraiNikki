@@ -35,7 +35,7 @@ public class PlanOpenHelper extends SQLiteOpenHelper {
         // create table
         sqLiteDatabase.execSQL(CREATE_TABLE);
         // init table
-        sqLiteDatabase.execSQL(INIT_TABLE);
+//        sqLiteDatabase.execSQL(INIT_TABLE);
     }
 
     @Override

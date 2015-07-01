@@ -85,7 +85,7 @@ public class PlanListFragment extends Fragment {
         planListView.setAdapter(adapter);
         int planListLength = planListView.getCount();
 
-//        planListLength = 0;
+        planListLength = 2;
         if (planListLength < 1) {
             mListener.goToIntroduction();
         }
@@ -115,7 +115,6 @@ public class PlanListFragment extends Fragment {
 
     public interface InteractionListener {
         public void goToCreatePlan();
-
         public void goToIntroduction();
     }
 
