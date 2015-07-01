@@ -11,8 +11,8 @@
     <string name="app_introduction">自分の未来に日記をつけよう</string>
     <string name="welcome_button_text">未来を描く</string>
     <string name="empty_view_text">No data</string>
-    <string name="create_plan_button_text">new plan</string>
-    <string name="user_id_hint">ユーザーID</string>
+    <string name="create_plan_button_text">+</string>
+    <string name="user_id_hint">ユーザーネーム</string>
     <string name="user_birthday_hint">生年月日</string>
     <string name="user_pass_hint">パスワード</string>
     <string name="submit_user_info_button_text">サインアップ</string>

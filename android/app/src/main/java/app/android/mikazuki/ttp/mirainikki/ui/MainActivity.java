@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment fragment = new MainActivityFragment();
+        Fragment fragment = new PlanListFragment();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -58,6 +58,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
     }
 
     @Override
+    public void goToIntroduction() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new MainActivityFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToCreatePlan");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     public void goToCreatePlan() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -81,12 +92,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         Log.d("mylog", "MainActivity#goToSignUp");
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-
-    public void nextView(View view) {
-        Intent intent = new Intent(this, PlanListFragment.class);
-        startActivity(intent);
     }
 
     @Override

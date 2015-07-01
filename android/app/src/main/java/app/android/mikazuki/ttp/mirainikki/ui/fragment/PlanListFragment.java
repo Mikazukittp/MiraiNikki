@@ -2,6 +2,8 @@ package app.android.mikazuki.ttp.mirainikki.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,11 +19,14 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import app.android.mikazuki.ttp.mirainikki.R;
 import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.repository.RetrofitPlanRepository;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.PlanOpenHelper;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
 import app.android.mikazuki.ttp.mirainikki.domain.entity.Plan;
 import app.android.mikazuki.ttp.mirainikki.domain.repository.BaseCallback;
 import butterknife.InjectView;
@@ -31,6 +36,7 @@ public class PlanListFragment extends Fragment {
 
     private InteractionListener mListener;
     private RetrofitPlanRepository mPlanRepository;
+
 
     public PlanListFragment() {
     }
@@ -45,7 +51,6 @@ public class PlanListFragment extends Fragment {
         Log.d("mylog", "PlanListFragment");
         // 遷移先のxmlを指定
         final View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
-
         final ListView planListView = (ListView) view.findViewById(R.id.planListView);
 
         mPlanRepository = new RetrofitPlanRepository();
@@ -57,13 +62,48 @@ public class PlanListFragment extends Fragment {
                 // ListViewに表示
                 planListView.setAdapter(adapter);
                 planListView.setEmptyView(view.findViewById(R.id.emptyView));
+                int planListLength = planListView.getCount();
+
+                planListLength = 2;
+                if (planListLength < 1) {
+                    mListener.goToIntroduction();
+                }
+
             }
 
             @Override
-            public void onFailure() {
 
+            public void onFailure() {
             }
         });
+        //open db
+        PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
+        SQLiteDatabase db = planOpenHelper.getWritableDatabase();
+
+
+        Cursor c = null;
+        c = db.query(
+                PlanContract.Plans.TABLE_NAME,
+                null, //fields
+                null, //where
+                null, //where arg
+                null, //group by
+                null, //having
+                null  //order by
+        );
+        Log.d("mylog", "Count: " + c.getCount());
+
+        ArrayList<Plan> plans = new ArrayList<>();
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
+            String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
+            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
+            Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
+            plans.add(new Plan(id, content, date));
+        }
+        // close db
+        c.close();
+        db.close();
 
         Button bt = (Button) view.findViewById(R.id.createPlanButton);
 
@@ -74,25 +114,6 @@ public class PlanListFragment extends Fragment {
                 mListener.goToCreatePlan();
             }
         });
-
-        //Event
-//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(
-//                    AdapterView<?> adapterView,
-//                    View view, // タップされたView
-//                    int i, // 何番目？
-//                    long l // View id
-//            ) {
-//                TextView content = (TextView) view.findViewById(R.id.content);
-//                Toast.makeText(
-//                        PlanListFragment.this.getActivity().getApplicationContext(),
-//                        Integer.toString(i) + ":" + content.getText().toString(),
-//                        Toast.LENGTH_SHORT
-//                ).show();
-//                content.setText("Tapped!");
-//            }
-//        });
 
         return view;
     }
@@ -109,6 +130,8 @@ public class PlanListFragment extends Fragment {
 
     public interface InteractionListener {
         public void goToCreatePlan();
+
+        public void goToIntroduction();
     }
 
 
@@ -146,8 +169,8 @@ public class PlanListFragment extends Fragment {
             SimpleDateFormat outFmt = new SimpleDateFormat("yyyy年 MM月", Locale.JAPAN);
             try {
                 holder.date.setText(outFmt.format(inFmt.parse(plan.getDate())));
-            }catch(ParseException e){
-                Log.e("TAG", "Date parse error: "+plan.getDate());
+            } catch (ParseException e) {
+                Log.e("TAG", "Date parse error: " + plan.getDate());
                 Log.e("TAG", e.getMessage());
                 holder.date.setText(plan.getDate());
             }
