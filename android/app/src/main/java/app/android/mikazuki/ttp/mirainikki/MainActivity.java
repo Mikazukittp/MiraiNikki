@@ -1,5 +1,6 @@
 package app.android.mikazuki.ttp.mirainikki;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +9,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
+import app.android.mikazuki.ttp.mirainikki.fragment.CreatePlanFragment;
+import app.android.mikazuki.ttp.mirainikki.fragment.MainActivityFragment;
+import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
+import app.android.mikazuki.ttp.mirainikki.fragment.SignUpFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.InteractionListener, PlanListFragment.InteractionListener, CreatePlanFragment.InteractionListener,SignUpFragment.InteractionListener {
 
     @InjectView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -34,6 +41,51 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void goToPlanList() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new PlanListFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToPlanList");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void goToCreatePlan() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new CreatePlanFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToCreatePlan");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void goToSignUp() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 遷移先のFragmentを指定
+        Fragment fragment = new SignUpFragment();
+        //
+        transaction.replace(R.id.fragment_container, fragment);
+        Log.d("mylog", "MainActivity#goToSignUp");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    public void nextView(View view) {
+        Intent intent = new Intent(this, PlanListFragment.class);
+        startActivity(intent);
     }
 
     @Override

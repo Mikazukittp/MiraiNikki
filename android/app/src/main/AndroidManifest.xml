@@ -16,6 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".fragment.PlanListFragment"
+            android:label="@string/title_activity_diary_list"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".fragment.CreatePlanFragment"
+            android:label="@string/title_activity_create_plan" >
+        </activity>
+
+        <provider
+            android:name=".PlanContentProvider"
+            android:authorities="app.android.mikazuki.ttp.mirainikki"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+
+        <activity
+            android:name=".fragment.SignUpFragment"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
     </application>
 
 </manifest>
