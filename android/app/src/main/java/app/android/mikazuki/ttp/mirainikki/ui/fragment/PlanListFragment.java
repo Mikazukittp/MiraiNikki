@@ -2,6 +2,8 @@ package app.android.mikazuki.ttp.mirainikki.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,12 +20,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.android.mikazuki.ttp.mirainikki.R;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.PlanOpenHelper;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
 import butterknife.InjectView;
 
 
 public class PlanListFragment extends Fragment {
 
     private InteractionListener mListener;
+
 
     public PlanListFragment() {
     }
@@ -36,24 +41,50 @@ public class PlanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("mylog", "PlanListFragment");
-        // 遷移先のxmlを指定
-        View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
 
+        View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
         ListView planListView = (ListView) view.findViewById(R.id.planListView);
 
-        //データを準備
-        ArrayList<Plan> plans = new ArrayList<>();
-        plans.add(new Plan("YYYY/MM/DD1", "future planing_1"));
-        plans.add(new Plan("YYYY/MM/DD2", "future planing_2"));
-        plans.add(new Plan("YYYY/MM/DD3", "future planing_3"));
+        //open db
+        PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
+        SQLiteDatabase db = planOpenHelper.getWritableDatabase();
 
+
+        Cursor c = null;
+        c = db.query(
+                PlanContract.Plans.TABLE_NAME,
+                null, //fields
+                null, //where
+                null, //where arg
+                null, //group by
+                null, //having
+                null  //order by
+        );
+        Log.d("mylog", "Count: " + c.getCount());
+
+        ArrayList<Plan> plans = new ArrayList<>();
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
+            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
+            String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
+            Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
+            plans.add(new Plan(date, content));
+        }
+        // close db
+        c.close();
+        db.close();
 
         //Adapter - ArrayAdapter
         PlanAdapter adapter = new PlanAdapter(getActivity().getApplicationContext(), 0, plans);
 
         // ListViewに表示
         planListView.setAdapter(adapter);
-        planListView.setEmptyView(view.findViewById(R.id.emptyView));
+        int planListLength = planListView.getCount();
+
+        planListLength = 2;
+        if (planListLength < 1) {
+            mListener.goToIntroduction();
+        }
 
         Button bt = (Button) view.findViewById(R.id.createPlanButton);
 
@@ -64,25 +95,6 @@ public class PlanListFragment extends Fragment {
                 mListener.goToCreatePlan();
             }
         });
-
-        //Event
-//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(
-//                    AdapterView<?> adapterView,
-//                    View view, // タップされたView
-//                    int i, // 何番目？
-//                    long l // View id
-//            ) {
-//                TextView content = (TextView) view.findViewById(R.id.content);
-//                Toast.makeText(
-//                        PlanListFragment.this.getActivity().getApplicationContext(),
-//                        Integer.toString(i) + ":" + content.getText().toString(),
-//                        Toast.LENGTH_SHORT
-//                ).show();
-//                content.setText("Tapped!");
-//            }
-//        });
 
         return view;
     }
@@ -99,6 +111,7 @@ public class PlanListFragment extends Fragment {
 
     public interface InteractionListener {
         public void goToCreatePlan();
+        public void goToIntroduction();
     }
 
 
