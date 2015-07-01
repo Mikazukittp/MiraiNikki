@@ -1,4 +1,4 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.data.repository.db;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -6,7 +6,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
-import app.android.mikazuki.ttp.mirainikki.model.PlanContract;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
 
 public class PlanContentProvider extends ContentProvider {
 

@@ -1,4 +1,4 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import app.android.mikazuki.ttp.mirainikki.fragment.CreatePlanFragment;
-import app.android.mikazuki.ttp.mirainikki.fragment.MainActivityFragment;
-import app.android.mikazuki.ttp.mirainikki.fragment.PlanListFragment;
-import app.android.mikazuki.ttp.mirainikki.fragment.SignUpFragment;
+import app.android.mikazuki.ttp.mirainikki.R;
+import app.android.mikazuki.ttp.mirainikki.ui.fragment.CreatePlanFragment;
+import app.android.mikazuki.ttp.mirainikki.ui.fragment.MainActivityFragment;
+import app.android.mikazuki.ttp.mirainikki.ui.fragment.PlanListFragment;
+import app.android.mikazuki.ttp.mirainikki.ui.fragment.SignUpFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
