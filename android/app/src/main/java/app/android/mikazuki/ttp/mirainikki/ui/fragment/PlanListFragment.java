@@ -15,15 +15,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
 
 import app.android.mikazuki.ttp.mirainikki.R;
+import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.repository.RetrofitPlanRepository;
+import app.android.mikazuki.ttp.mirainikki.domain.entity.Plan;
+import app.android.mikazuki.ttp.mirainikki.domain.repository.BaseCallback;
 import butterknife.InjectView;
 
 
 public class PlanListFragment extends Fragment {
 
     private InteractionListener mListener;
+    private RetrofitPlanRepository mPlanRepository;
 
     public PlanListFragment() {
     }
@@ -37,23 +44,26 @@ public class PlanListFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d("mylog", "PlanListFragment");
         // 遷移先のxmlを指定
-        View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
 
-        ListView planListView = (ListView) view.findViewById(R.id.planListView);
+        final ListView planListView = (ListView) view.findViewById(R.id.planListView);
 
-        //データを準備
-        ArrayList<Plan> plans = new ArrayList<>();
-        plans.add(new Plan("YYYY/MM/DD1", "future planing_1"));
-        plans.add(new Plan("YYYY/MM/DD2", "future planing_2"));
-        plans.add(new Plan("YYYY/MM/DD3", "future planing_3"));
+        mPlanRepository = new RetrofitPlanRepository();
+        mPlanRepository.getAll(new BaseCallback<List<Plan>>() {
+            @Override
+            public void onSuccess(List<Plan> plans) {
+                //Adapter - ArrayAdapter
+                PlanAdapter adapter = new PlanAdapter(getActivity().getApplicationContext(), 0, plans);
+                // ListViewに表示
+                planListView.setAdapter(adapter);
+                planListView.setEmptyView(view.findViewById(R.id.emptyView));
+            }
 
+            @Override
+            public void onFailure() {
 
-        //Adapter - ArrayAdapter
-        PlanAdapter adapter = new PlanAdapter(getActivity().getApplicationContext(), 0, plans);
-
-        // ListViewに表示
-        planListView.setAdapter(adapter);
-        planListView.setEmptyView(view.findViewById(R.id.emptyView));
+            }
+        });
 
         Button bt = (Button) view.findViewById(R.id.createPlanButton);
 
@@ -105,7 +115,7 @@ public class PlanListFragment extends Fragment {
     public class PlanAdapter extends ArrayAdapter<Plan> {
         private LayoutInflater layoutInflater;
 
-        public PlanAdapter(Context c, int id, ArrayList<Plan> plans) {
+        public PlanAdapter(Context c, int id, List<Plan> plans) {
             super(c, id, plans);
             this.layoutInflater = (LayoutInflater) c.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE
@@ -132,7 +142,15 @@ public class PlanListFragment extends Fragment {
 
             Plan plan = (Plan) getItem(pos);
 
-            holder.date.setText(plan.getDate());
+            SimpleDateFormat inFmt = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outFmt = new SimpleDateFormat("yyyy年 MM月", Locale.JAPAN);
+            try {
+                holder.date.setText(outFmt.format(inFmt.parse(plan.getDate())));
+            }catch(ParseException e){
+                Log.e("TAG", "Date parse error: "+plan.getDate());
+                Log.e("TAG", e.getMessage());
+                holder.date.setText(plan.getDate());
+            }
             holder.content.setText(plan.getContent());
 
             return convertView;
@@ -144,32 +162,6 @@ public class PlanListFragment extends Fragment {
     static class ViewHolder {
         TextView date;
         TextView content;
-    }
-
-    public class Plan {
-        private String date;
-        private String content;
-
-        public Plan(String date, String content) {
-            setDate(date);
-            setContent(content);
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
     }
 
 }

@@ -12,8 +12,8 @@ public class PlanRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addHeader("uid", "");
-        request.addHeader("token", "");
+        request.addHeader("uid", "1");
+        request.addHeader("token", "a8ucn23a6hlPL6PG61c4gQ6aIWruS81X");
     }
 
 };
