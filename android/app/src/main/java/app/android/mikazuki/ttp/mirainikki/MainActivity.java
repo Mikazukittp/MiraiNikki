@@ -82,12 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         transaction.commit();
     }
 
-
-    public void nextView(View view) {
-        Intent intent = new Intent(this, PlanListFragment.class);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

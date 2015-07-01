@@ -99,26 +99,4 @@ public class CreatePlanFragment extends Fragment {
         public void goToSignUp();
     }
 
-
-    public void submitPlan(View view) {
-        // EditTextを取得
-        EditText planContent = (EditText) view.findViewById(R.id.planContent);
-
-        // EditTextの中身を取得
-        String pc = planContent.getText().toString().trim();
-
-        // 中身を観て条件分岐
-        if (pc.equals("")) {
-            // エラー処理
-            Toast.makeText(
-                    CreatePlanFragment.this.getActivity().getApplicationContext(),
-                    "Please enter your name!",
-                    Toast.LENGTH_LONG
-            ).show();
-
-        } else {
-            // 次の画面へ
-
-        }
-    }
 }
