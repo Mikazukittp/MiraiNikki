@@ -1,10 +1,10 @@
-package app.android.mikazuki.ttp.mirainikki;
+package app.android.mikazuki.ttp.mirainikki.data.repository.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import app.android.mikazuki.ttp.mirainikki.model.PlanContract;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
 
 /**
  * Created by 01006510 on 2015/06/28.

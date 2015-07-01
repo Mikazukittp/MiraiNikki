@@ -1,25 +1,21 @@
-package app.android.mikazuki.ttp.mirainikki.fragment;
+package app.android.mikazuki.ttp.mirainikki.ui.fragment;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import app.android.mikazuki.ttp.mirainikki.model.PlanContract;
-import app.android.mikazuki.ttp.mirainikki.PlanOpenHelper;
 import app.android.mikazuki.ttp.mirainikki.R;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.PlanOpenHelper;
+import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
 
 
 public class CreatePlanFragment extends Fragment {

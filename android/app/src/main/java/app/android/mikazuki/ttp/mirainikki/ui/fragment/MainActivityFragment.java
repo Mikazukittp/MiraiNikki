@@ -1,10 +1,8 @@
-package app.android.mikazuki.ttp.mirainikki.fragment;
+package app.android.mikazuki.ttp.mirainikki.ui.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,27 +11,28 @@ import android.widget.Button;
 
 import app.android.mikazuki.ttp.mirainikki.R;
 
-
-public class SignUpFragment extends Fragment {
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public class MainActivityFragment extends Fragment {
 
     private InteractionListener mListener;
 
-    public SignUpFragment() {
+
+    public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("mylog", "SignUpFragment");
-
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-
-        Button bt = (Button) view.findViewById(R.id.submitUserInfoButton);
+        final View view = inflater.inflate(R.layout.fragment_main, container, false);
+        Log.d("mylog", "MainActivityFragment");
+        Button bt = (Button) view.findViewById(R.id.welcomeButton);
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("mylog", "SignUpFragment#onClick");
+                Log.d("mylog", "MainActivityFragment#onClick");
                 mListener.goToPlanList();
             }
         });
@@ -41,12 +40,13 @@ public class SignUpFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (InteractionListener) activity;
-        } catch (ClassCastException e) {
+        try{
+            mListener = (InteractionListener)activity;
+        }catch(ClassCastException e){
             Log.e("TAG", e.getMessage());
         }
     }
@@ -54,5 +54,6 @@ public class SignUpFragment extends Fragment {
     public interface InteractionListener {
         public void goToPlanList();
     }
+
 
 }
