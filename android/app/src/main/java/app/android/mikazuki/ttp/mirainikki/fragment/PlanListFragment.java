@@ -28,6 +28,8 @@ public class PlanListFragment extends Fragment {
 
     private InteractionListener mListener;
 
+    public ArrayList<Plan> plans = new ArrayList<>();
+
     public PlanListFragment() {
     }
 
@@ -39,13 +41,16 @@ public class PlanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("mylog", "PlanListFragment");
-        // 遷移先のxmlを指定
+
         View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
-
         ListView planListView = (ListView) view.findViewById(R.id.planListView);
+        int planListLength = planListView.getCount();
 
+        // 遷移先のxmlを指定
+//        if (planListLength < 1) {
+//            mListener.goToIntroduction();
+//        }
         //データを準備
-        ArrayList<Plan> plans = new ArrayList<>();
         plans.add(new Plan("YYYY/MM/DD1", "future planing_1"));
         plans.add(new Plan("YYYY/MM/DD2", "future planing_2"));
         plans.add(new Plan("YYYY/MM/DD3", "future planing_3"));
@@ -68,25 +73,6 @@ public class PlanListFragment extends Fragment {
             }
         });
 
-        //Event
-//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(
-//                    AdapterView<?> adapterView,
-//                    View view, // タップされたView
-//                    int i, // 何番目？
-//                    long l // View id
-//            ) {
-//                TextView content = (TextView) view.findViewById(R.id.content);
-//                Toast.makeText(
-//                        PlanListFragment.this.getActivity().getApplicationContext(),
-//                        Integer.toString(i) + ":" + content.getText().toString(),
-//                        Toast.LENGTH_SHORT
-//                ).show();
-//                content.setText("Tapped!");
-//            }
-//        });
-
         return view;
     }
 
@@ -102,6 +88,7 @@ public class PlanListFragment extends Fragment {
 
     public interface InteractionListener {
         public void goToCreatePlan();
+        public void goToIntroduction();
     }
 
 
