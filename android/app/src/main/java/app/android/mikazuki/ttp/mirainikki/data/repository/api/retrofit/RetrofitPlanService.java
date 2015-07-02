@@ -1,6 +1,9 @@
 package app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit;
 
+import java.util.List;
+
 import app.android.mikazuki.ttp.mirainikki.domain.entity.Plan;
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
@@ -15,13 +18,16 @@ public interface RetrofitPlanService {
     static final String PATH_PLAN_WITH_ID = "/post/{id}";
 
     @POST(PATH_PLAN)
-    public Plan createPlan(@Query("post") Plan plan);
+    public void createPlan(@Query("post") Plan plan, Callback<Plan> cb);
+//    public Plan createPlan(@Query("post") Plan plan);
 
     @GET(PATH_PLAN_WITH_ID)
-    public Plan getPlan(@Path("id") int id);
+    public void getPlan(@Path("id") int id, Callback<Plan> cb);
+//    public Plan getPlan(@Path("id") int id);
 
     @GET(PATH_PLAN)
-    public Plan getAllPlan();
+    public void getAllPlan(Callback<List<Plan>> cb);
+//    public List<Plan> getAllPlan();
 
 
 }

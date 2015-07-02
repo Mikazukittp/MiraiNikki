@@ -7,6 +7,6 @@ import app.android.mikazuki.ttp.mirainikki.domain.entity.User;
  */
 public interface UserRepository extends BaseRepository<User> {
 
-    public User signIn(String username, String password);
+    public void signIn(String username, String password, BaseCallback<User> cb);
 
 }

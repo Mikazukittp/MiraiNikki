@@ -17,17 +17,25 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import app.android.mikazuki.ttp.mirainikki.R;
+import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.repository.RetrofitPlanRepository;
 import app.android.mikazuki.ttp.mirainikki.data.repository.db.PlanOpenHelper;
 import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
+import app.android.mikazuki.ttp.mirainikki.domain.entity.Plan;
+import app.android.mikazuki.ttp.mirainikki.domain.repository.BaseCallback;
 import butterknife.InjectView;
 
 
 public class PlanListFragment extends Fragment {
 
     private InteractionListener mListener;
+    private RetrofitPlanRepository mPlanRepository;
 
 
     public PlanListFragment() {
@@ -41,10 +49,27 @@ public class PlanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("mylog", "PlanListFragment");
+        // 遷移先のxmlを指定
+        final View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
+        final ListView planListView = (ListView) view.findViewById(R.id.planListView);
 
-        View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
-        ListView planListView = (ListView) view.findViewById(R.id.planListView);
+        mPlanRepository = new RetrofitPlanRepository();
+        mPlanRepository.getAll(new BaseCallback<List<Plan>>() {
+            @Override
+            public void onSuccess(List<Plan> plans) {
+                //Adapter - ArrayAdapter
+                PlanAdapter adapter = new PlanAdapter(getActivity().getApplicationContext(), 0, plans);
+                // ListViewに表示
+                planListView.setAdapter(adapter);
+                planListView.setEmptyView(view.findViewById(R.id.emptyView));
 
+                if (planListView.getCount() == 0) {
+                    mListener.goToIntroduction();
+                }
+            }
+            @Override
+            public void onFailure() {}
+        });
         //open db
         PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
         SQLiteDatabase db = planOpenHelper.getWritableDatabase();
@@ -65,26 +90,14 @@ public class PlanListFragment extends Fragment {
         ArrayList<Plan> plans = new ArrayList<>();
         while (c.moveToNext()) {
             int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
-            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
             String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
+            String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
             Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
-            plans.add(new Plan(date, content));
+            plans.add(new Plan(id, content, date));
         }
         // close db
         c.close();
         db.close();
-
-        //Adapter - ArrayAdapter
-        PlanAdapter adapter = new PlanAdapter(getActivity().getApplicationContext(), 0, plans);
-
-        // ListViewに表示
-        planListView.setAdapter(adapter);
-        int planListLength = planListView.getCount();
-
-        planListLength = 2;
-        if (planListLength < 1) {
-            mListener.goToIntroduction();
-        }
 
         Button bt = (Button) view.findViewById(R.id.createPlanButton);
 
@@ -111,6 +124,7 @@ public class PlanListFragment extends Fragment {
 
     public interface InteractionListener {
         public void goToCreatePlan();
+
         public void goToIntroduction();
     }
 
@@ -118,7 +132,7 @@ public class PlanListFragment extends Fragment {
     public class PlanAdapter extends ArrayAdapter<Plan> {
         private LayoutInflater layoutInflater;
 
-        public PlanAdapter(Context c, int id, ArrayList<Plan> plans) {
+        public PlanAdapter(Context c, int id, List<Plan> plans) {
             super(c, id, plans);
             this.layoutInflater = (LayoutInflater) c.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE
@@ -145,44 +159,23 @@ public class PlanListFragment extends Fragment {
 
             Plan plan = (Plan) getItem(pos);
 
-            holder.date.setText(plan.getDate());
+            SimpleDateFormat inFmt = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outFmt = new SimpleDateFormat("yyyy年 MM月", Locale.JAPAN);
+            try {
+                holder.date.setText(outFmt.format(inFmt.parse(plan.getDate())));
+            } catch (ParseException e) {
+                Log.e("TAG", "Date parse error: " + plan.getDate());
+                Log.e("TAG", e.getMessage());
+                holder.date.setText(plan.getDate());
+            }
             holder.content.setText(plan.getContent());
-
             return convertView;
         }
-
     }
-
 
     static class ViewHolder {
         TextView date;
         TextView content;
-    }
-
-    public class Plan {
-        private String date;
-        private String content;
-
-        public Plan(String date, String content) {
-            setDate(date);
-            setContent(content);
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
     }
 
 }

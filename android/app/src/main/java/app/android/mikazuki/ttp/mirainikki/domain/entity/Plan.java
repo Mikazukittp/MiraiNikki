@@ -1,7 +1,5 @@
 package app.android.mikazuki.ttp.mirainikki.domain.entity;
 
-import java.util.Date;
-
 /**
  * Created by haijimakazuki on 15/07/01.
  */
@@ -9,12 +7,12 @@ public class Plan {
 
     private int id;
     private String content;
-    private Date date;
+    private String date;
 
     public Plan() {
     }
 
-    public Plan(int id, String content, Date date) {
+    public Plan(int id, String content, String date) {
         this.id = id;
         this.content = content;
         this.date = date;
@@ -36,11 +34,11 @@ public class Plan {
         this.content = content;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

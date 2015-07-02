@@ -8,6 +8,7 @@ import java.util.List;
 import app.android.mikazuki.ttp.mirainikki.data.repository.api.ApiUtil;
 import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.RetrofitUserService;
 import app.android.mikazuki.ttp.mirainikki.domain.entity.User;
+import app.android.mikazuki.ttp.mirainikki.domain.repository.BaseCallback;
 import app.android.mikazuki.ttp.mirainikki.domain.repository.UserRepository;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -30,70 +31,62 @@ public class RetrofitUserRepository implements UserRepository {
     final RetrofitUserService API = REST_ADAPTER.create(RetrofitUserService.class);
 
     @Override
-    public User get(int id) {
+    public void get(int id, final BaseCallback<User> cb) {
         API.getuser(id, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-
+                cb.onFailure();
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                cb.onFailure();
             }
         });
-
-        return null;
     }
 
     @Override
-    public User create(User user) {
+    public void create(User user, final BaseCallback<User> cb) {
         API.createUer(user, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-
+                cb.onFailure();
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                cb.onFailure();
             }
         });
-
-        return null;
     }
 
     @Override
-    public User signIn(String username, String password) {
-
+    public void signIn(String username, String password, final BaseCallback<User> cb) {
         API.signIn(username, password, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-
+                cb.onSuccess(user);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                cb.onFailure();
             }
         });
-
-        return null;
     }
 
     @Override
-    public List<User> getAll() {
-        return null;
-    }
-
-    @Override
-    public User update(User user) {
+    public void getAll(final BaseCallback<List<User>> cb) {
         // do nothing
-        return null;
     }
 
     @Override
-    public void delete(int id) {
+    public void update(User user, final BaseCallback<User> cb) {
+        // do nothing
+    }
+
+    @Override
+    public void delete(int id, final BaseCallback<User> cb) {
         // do nothing
     }
 
