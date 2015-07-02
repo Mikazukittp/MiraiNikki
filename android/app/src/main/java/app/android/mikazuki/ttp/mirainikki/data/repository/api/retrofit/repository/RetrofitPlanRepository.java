@@ -12,6 +12,7 @@ import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.Intercep
 import app.android.mikazuki.ttp.mirainikki.data.repository.api.retrofit.RetrofitPlanService;
 import app.android.mikazuki.ttp.mirainikki.domain.entity.Plan;
 import app.android.mikazuki.ttp.mirainikki.domain.repository.BaseCallback;
+import app.android.mikazuki.ttp.mirainikki.domain.repository.PlanRepository;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -21,7 +22,7 @@ import retrofit.converter.GsonConverter;
 /**
  * Created by haijimakazuki on 15/07/01.
  */
-public class RetrofitPlanRepository {
+public class RetrofitPlanRepository implements PlanRepository {
 
 
     Gson GSON = new GsonBuilder().create();
@@ -34,6 +35,7 @@ public class RetrofitPlanRepository {
 
     final RetrofitPlanService API = REST_ADAPTER.create(RetrofitPlanService.class);
 
+    @Override
     public void get(int id, final BaseCallback<Plan> cb) {
         API.getPlan(id, new Callback<Plan>() {
             @Override
@@ -48,6 +50,7 @@ public class RetrofitPlanRepository {
         });
     }
 
+    @Override
     public void getAll(final BaseCallback<List<Plan>> cb) {
         API.getAllPlan(new Callback<List<Plan>>() {
             @Override
@@ -63,6 +66,7 @@ public class RetrofitPlanRepository {
         });
     }
 
+    @Override
     public void create(Plan plan, final BaseCallback<Plan> cb) {
         API.createPlan(plan, new Callback<Plan>() {
             @Override
@@ -77,13 +81,14 @@ public class RetrofitPlanRepository {
         });
     }
 
-//    public Plan update(Plan plan) {
-//        // do nothing
-//        return null;
-//    }
-//
-//    public void delete(int id) {
-//        // do nothing
-//    }
+    @Override
+    public void update(Plan plan, final BaseCallback<Plan> cb) {
+        // do nothing
+    }
+
+    @Override
+    public void delete(int id, final BaseCallback<Plan> cb) {
+        // do nothing
+    }
 
 }

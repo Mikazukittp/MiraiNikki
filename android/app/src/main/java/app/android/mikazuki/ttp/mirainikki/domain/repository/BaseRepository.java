@@ -7,10 +7,10 @@ import java.util.List;
  */
 public interface BaseRepository<T> {
 
-    public T get(int id);
-    public List<T> getAll();
-    public T create(T t);
-    public T update(T t);
-    public void delete(int id);
+    public void get(int id, BaseCallback<T> cb);
+    public void getAll(BaseCallback<List<T>> cb);
+    public void create(T t, BaseCallback<T> cb);
+    public void update(T t, BaseCallback<T> cb);
+    public void delete(int id, BaseCallback<T> cb);
 
 }

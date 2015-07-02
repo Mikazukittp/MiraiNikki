@@ -62,19 +62,13 @@ public class PlanListFragment extends Fragment {
                 // ListViewに表示
                 planListView.setAdapter(adapter);
                 planListView.setEmptyView(view.findViewById(R.id.emptyView));
-                int planListLength = planListView.getCount();
 
-                planListLength = 2;
-                if (planListLength < 1) {
+                if (planListView.getCount() == 0) {
                     mListener.goToIntroduction();
                 }
-
             }
-
             @Override
-
-            public void onFailure() {
-            }
+            public void onFailure() {}
         });
         //open db
         PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
@@ -175,12 +169,9 @@ public class PlanListFragment extends Fragment {
                 holder.date.setText(plan.getDate());
             }
             holder.content.setText(plan.getContent());
-
             return convertView;
         }
-
     }
-
 
     static class ViewHolder {
         TextView date;
