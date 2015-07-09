@@ -8,10 +8,13 @@
 
 import UIKit
 
-class NewFeatureViewController: UIViewController {
+class NewFeatureViewController:UIViewController,UITextFieldDelegate{
+    
+    @IBOutlet weak var InputText: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "新規作成"
+    
+        InputText.text = "aaa"        // Do any additional setup after loading the view.
     }
 }
