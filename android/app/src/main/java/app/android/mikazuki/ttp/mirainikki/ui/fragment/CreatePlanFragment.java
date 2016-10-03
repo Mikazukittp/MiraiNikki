@@ -1,11 +1,9 @@
 package app.android.mikazuki.ttp.mirainikki.ui.fragment;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +12,25 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import app.android.mikazuki.ttp.mirainikki.R;
-import app.android.mikazuki.ttp.mirainikki.data.repository.db.PlanOpenHelper;
-import app.android.mikazuki.ttp.mirainikki.data.repository.db.model.PlanContract;
+import app.android.mikazuki.ttp.mirainikki.ui.ToolBarListener;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class CreatePlanFragment extends Fragment {
 
+
+    @Bind(R.id.tool_bar)
+    Toolbar mToolbar;
+    @Bind(R.id.planDate)
+    EditText planDate;
+    @Bind(R.id.planContent)
+    EditText planContent;
+    @Bind(R.id.submitPlanButton)
+    Button bt;
+
     private InteractionListener mListener;
+    private ToolBarListener mToolbarListener;
 
     public CreatePlanFragment() {
     }
@@ -29,53 +39,15 @@ public class CreatePlanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("mylog", "CreatePlanFragment");
-
         View view = inflater.inflate(R.layout.fragment_create_plan, container, false);
+        ButterKnife.bind(this,view);
 
-        final EditText planDate = (EditText) view.findViewById(R.id.planDate);
-        final EditText planContent = (EditText) view.findViewById(R.id.planContent);
-        Button bt = (Button) view.findViewById(R.id.submitPlanButton);
-
-        bt.setOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //open db
-                PlanOpenHelper planOpenHelper = new PlanOpenHelper(getActivity().getApplicationContext());
-                SQLiteDatabase db = planOpenHelper.getWritableDatabase();
-
-                ContentValues newPlan = new ContentValues();
-                newPlan.put(PlanContract.Plans.COL_DATE, String.valueOf(planDate.getText()));
-                newPlan.put(PlanContract.Plans.COL_CONTENT, String.valueOf(planContent.getText()));
-                long newId = db.insert(
-                        PlanContract.Plans.TABLE_NAME,
-                        null,
-                        newPlan
-                );
-
-                Cursor c = null;
-                c = db.query(
-                        PlanContract.Plans.TABLE_NAME,
-                        null, //fields
-                        null, //where
-                        null, //where arg
-                        null, //group by
-                        null, //having
-                        null  //order by
-                );
-                Log.d("mylog", "Count: " + c.getCount());
-
-                while (c.moveToNext()) {
-                    int id = c.getInt(c.getColumnIndex(PlanContract.Plans._ID));
-                    String date = c.getString(c.getColumnIndex(PlanContract.Plans.COL_DATE));
-                    String content = c.getString(c.getColumnIndex(PlanContract.Plans.COL_CONTENT));
-                    Log.d("mylog", "id: " + id + " date: " + date + " content: " + content);
-                }
-                // close db
-                c.close();
-                db.close();
-
-                Log.d("mylog", "CreatePlanFragment#onClick");
-                mListener.goToSignUp();
+            public void onClick(View view) {
+                mToolbarListener.onMenuClick();
             }
         });
 
@@ -87,9 +59,16 @@ public class CreatePlanFragment extends Fragment {
         super.onAttach(activity);
         try {
             mListener = (InteractionListener) activity;
+            mToolbarListener = (ToolBarListener) activity;
         } catch (ClassCastException e) {
             Log.e("TAG", e.getMessage());
         }
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     public interface InteractionListener {

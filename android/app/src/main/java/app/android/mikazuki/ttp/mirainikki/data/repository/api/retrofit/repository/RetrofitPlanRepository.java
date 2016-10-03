@@ -60,7 +60,11 @@ public class RetrofitPlanRepository implements PlanRepository {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("!!!!!", error.getResponse().getStatus()+" "+error.getMessage());
+                if(error.getResponse() != null){
+                    Log.e("!!!!!", error.getResponse().getStatus()+" "+error.getMessage());
+                }else{
+                    Log.e("!!!!!", error.getMessage());
+                }
                 cb.onFailure();
             }
         });

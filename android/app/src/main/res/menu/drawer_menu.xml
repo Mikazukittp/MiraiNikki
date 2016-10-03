@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/top"
+            android:icon="@drawable/ic_today_black_48dp"
+            android:checked="true"
+            android:title="あなたの日記" />
+
+        <item
+            android:id="@+id/account"
+            android:icon="@drawable/ic_person_black_48dp"
+            android:title="アカウント設定" />
+
+        <!-- Sub Headerを作成 -->
+        <item
+            android:id="@+id/navigation_sub_header"
+            android:title="@string/action_settings">
+            <menu>
+                <item
+                    android:id="@+id/about"
+                    android:icon="@drawable/ic_info_black_48dp"
+                    android:title="このアプリについて" />
+            </menu>
+        </item>
+    </group>
+</menu>

@@ -13,6 +13,7 @@
             android:layout_marginTop="70dp"
             android:hint="@string/plan_date_hint" />
 
+
         <EditText
             android:id="@+id/planContent"
             android:layout_width="match_parent"
