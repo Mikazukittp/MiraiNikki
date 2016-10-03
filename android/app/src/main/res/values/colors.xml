@@ -3,8 +3,9 @@
     <!-- Based on http://www.google.com/design/spec/style/color.html -->
 
     <!-- Theme & Accent -->
+    <color name="theme200">#80CBC4</color>
     <color name="theme400">#26A69A</color>
-    <color name="theme600">#47A493</color>
+    <color name="theme600">#00897B</color>
     <color name="theme800">#00695C</color>
     <color name="accent500">#E67F4F</color>
 
